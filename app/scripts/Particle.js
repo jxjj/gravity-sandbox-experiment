@@ -19,6 +19,7 @@ export default class Particle {
       // small amount of energy loss on edge bounce
       edgeBounceFactor: 0.99,
       edgeBounceMode: true,
+      frictionFactor: 0.99,
       position:  new p5.Vector(0,0),
       sketch: null,
       velocity: new p5.Vector(0,0),
@@ -95,8 +96,8 @@ export default class Particle {
     // calulate new velocity
     // note we use previousPosition and position to calc current velocity
     this.velocity.set(
-      this.position.x - this.previousPosition.x + this.acceleration.x,
-      this.position.y - this.previousPosition.y + this.acceleration.y
+      ( this.position.x - this.previousPosition.x + this.acceleration.x ) * this.frictionFactor,
+      ( this.position.y - this.previousPosition.y + this.acceleration.y ) * this.frictionFactor
     );
 
     // update previousPosition

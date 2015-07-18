@@ -33,7 +33,7 @@ function sketch(s) {
     particles.push(new Particle({
       sketch: s,
       velocity: new p5.Vector(1,1),
-      acceleration: new p5.Vector(0,0),
+      acceleration: new p5.Vector(0.5,0.5),
     }));
   };
 
