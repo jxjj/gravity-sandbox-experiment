@@ -3,10 +3,12 @@
 'use strict';
 
 import $ from 'jquery';
-import _ from 'lodash';
+//import _ from 'lodash';
 import p5 from 'p5';
-import Particle from './Particle';
-import { getRandomFloat, getRandomInt } from './util';
+import ParticleSystem from './ParticleSystem';
+import { getRandomInt } from './util';
+
+let Vector = p5.Vector;
 
 let config = { 
   parent: '.canvas-wrapper',
@@ -15,8 +17,7 @@ let config = {
 };
 
 let $canvasWrapper = $(config.parent);
-let particles = [];
-window.particles = particles;
+let particleSys;
 
 function sketch(s) {
 
@@ -29,33 +30,35 @@ function sketch(s) {
 
     s.background(0);
     s.stroke(200);
+    //s.frameRate(1);
 
-    particles.push(new Particle({
+    particleSys = new ParticleSystem({
       sketch: s,
-      velocity: new p5.Vector(1,1),
-      acceleration: new p5.Vector(0.5,0.5),
-    }));
+    });
+
+    particleSys.add( {
+      position: new Vector(s.width/2 - 100, s.height/2),
+      color: 'red',
+    });
+
+    particleSys.add( {
+      position: new Vector(s.width/2 + 100, s.height/2),
+      color: 'blue',
+    });
   };
 
   s.draw = function() {
-
-    _.forEach(particles, (p) => {
-      p.update().render();
-    });
+    s.background(0);
+    particleSys.update().render();
 
   };
 
   s.mousePressed = function() {
 
-    let p = new Particle({
+    particleSys.add({
       position: new p5.Vector(s.mouseX, s.mouseY),
-      sketch: s,
-      velocity: new p5.Vector( getRandomFloat(-1,1), getRandomFloat(-1,1) ),
-      acceleration: new p5.Vector(0,0),
       color: [getRandomInt(0,255), getRandomInt(0,255), getRandomInt(0,255)]
     });
-    particles.push(p);
-
   };
 
   s.windowResized = function() {
