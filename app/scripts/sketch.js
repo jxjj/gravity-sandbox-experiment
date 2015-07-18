@@ -42,10 +42,15 @@ function sketch(s) {
       color: 'red',
     });
 
-    // particleSys.add( {
-    //   position: new Vector(s.width/2 + 100, s.height/2),
-    //   color: 'blue',
-    // });
+    particleSys.add( {
+      position: new Vector(s.width/2 + 100, s.height/2),
+      color: 'blue',
+    });
+
+    particleSys.add( {
+      position: new Vector(s.width/2 + 50, s.height/2 + 100),
+      color: [0,255,0],
+    });
   };
 
   s.draw = function() {
