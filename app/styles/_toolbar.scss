@@ -1,0 +1,61 @@
+.toolbar {
+  $white: hsla(0,100%, 100%, 0.5);
+  $black: hsla(0,0,0,0.5);
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  cursor: pointer;
+  color: $white;
+  background: $black;
+  ul {
+    list-style-type: none;
+  }
+  li {
+    display: inline-block;
+    border: 0.125em solid $white;
+    padding: 0.5em 1em;
+    margin-left: 1em;
+    position: relative;
+  }
+  li:hover {
+    background-color: $white;
+    color: $black;
+  }
+  .is-active {
+    background: #eee;
+    color: #333;
+    &:hover {
+      background: #eee;
+      color: #333;
+    }
+  }
+  .tooltip {
+    position:absolute;
+    opacity: 0;
+    width: 10em;
+    padding: 0.5em;
+    background-color: #fff;
+    color: #333;
+    top: -5em;
+    left: 0;
+    transition: opacity 3s ease-out;
+    &:after {
+      content: '';
+      display: block;
+      width: 1em;
+      height: 1em;
+      border: 0.5em solid transparent;
+      border-top-color: #fff;
+      position: absolute;
+      bottom: -1em;
+      left: 1em;
+    }
+  }
+  li:hover .tooltip {
+    opacity: 1;
+    transition: opacity 0.25s ease-out;
+  }
+}

@@ -1,0 +1,47 @@
+.main-nav {
+  background-color: hsla(0,0,0,0.5);
+  color: $white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  .container {
+    position: relative;
+  }
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  li {
+    display: inline-block;
+  }
+  li:after {
+    display: inline-block;
+    font-family: FontAwesome;
+    font-size: 1em;
+    margin: 0 0.5em;
+    color: #777;
+    content: "\f105";
+  }
+  li:last-child:after {
+    display: none;
+  }
+  a {
+    color: #aaa;
+    border-bottom-width: 0;
+  }
+  a:hover {
+    color: $white;
+  }
+  .source {
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    position: absolute;
+    top: 1rem;
+    right: 0;
+    font-size: 1.25em;
+  }
+}

@@ -1,3 +1,9 @@
 /* jshint devel:true */
-//let $ = require('jquery');
-console.log('Hello World!');
+
+'use strict';
+
+import sketch from './sketch';
+
+// initialize sketch
+sketch.init();
+
