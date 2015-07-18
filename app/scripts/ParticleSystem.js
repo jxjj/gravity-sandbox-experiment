@@ -15,7 +15,7 @@ export default class ParticleSystem {
   */
   constructor(config) {
     let defaults = {
-      gravitationalConstant: 5 *Math.pow(10,3),
+      gravitationalConstant: 5 * Math.pow(10,3),
       maxAccel: 1,
       particles: [],
       sketch: null,
@@ -89,11 +89,13 @@ export default class ParticleSystem {
   update() {
 
     // update acceleration
+    // we do this separately from updating position
+    // since particle positions affect acceleration
+    // (with the inverse sq of distance)
     _.forEach(this.particles, (p) => {
       this._applyForcesTo(p);
     });
 
-    // now update position,
     return this;
   }
 
@@ -102,10 +104,6 @@ export default class ParticleSystem {
   // is there a tradeoff? Keeping separate for now.
   render() {
     _.forEach(this.particles, (p) => {
-      console.log(`${p.color}.prev.x: ${p.previousPosition.x}`);
-      console.log(`${p.color}.pos.x: ${p.position.x}`);
-      console.log(`${p.color}.accel.x: ${p.acceleration.x}`);
-      console.log(`${p.color}.vel.x: ${p.velocity.x}`);
       p.update().render();
     });
   }

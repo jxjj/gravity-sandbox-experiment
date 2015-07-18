@@ -93,9 +93,7 @@ export default class Particle {
     let dx = this.position.x - anotherParticle.position.x;
     let dy = this.position.y - anotherParticle.position.y;
 
-
     let distSq = dx*dx + dy*dy;
-    console.log(`${this.color} getDistSqTo: ${distSq}` );
     return distSq;
   }
 
