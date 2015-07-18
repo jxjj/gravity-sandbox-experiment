@@ -3,8 +3,10 @@
 'use strict';
 
 import $ from 'jquery';
+import _ from 'lodash';
 import p5 from 'p5';
-
+import Particle from './Particle';
+import { getRandomInt, getRandomFloat } from './getRandom';
 
 let config = { 
   parent: '.canvas-wrapper',
@@ -14,6 +16,10 @@ let config = {
 
 let $canvasWrapper = $(config.parent);
 
+let particles = [];
+
+window.particles = particles;
+
 function sketch(s) {
 
   s.setup = function() {
@@ -22,11 +28,35 @@ function sketch(s) {
       $canvasWrapper.innerWidth(),
       $canvasWrapper.innerHeight()
     ).parent($canvasWrapper[0]);
+
+    s.background(0);
+    s.stroke(200);
+
+    particles.push(new Particle({
+      sketch: s,
+      velocity: new p5.Vector(1,1),
+      acceleration: new p5.Vector(0,0),
+    }));
   };
 
-  s.draw = function() {};
+  s.draw = function() {
+
+    _.forEach(particles, (p) => {
+      p.update().render();
+    });
+
+  };
 
   s.mousePressed = function() {
+
+    let p = new Particle({
+      position: new p5.Vector(s.mouseX, s.mouseY),
+      sketch: s,
+      velocity: new p5.Vector(1,1),
+      acceleration: new p5.Vector(0,0),
+    });
+    particles.push(p);
+
   };
 
   s.windowResized = function() {
@@ -40,4 +70,4 @@ function init() {
   return new p5(sketch);
 }
 
-module.exports = { init };
+export default { init };
