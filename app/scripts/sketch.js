@@ -6,7 +6,7 @@ import $ from 'jquery';
 import _ from 'lodash';
 import p5 from 'p5';
 import Particle from './Particle';
-import { getRandomInt, getRandomFloat } from './getRandom';
+import { getRandomFloat } from './util';
 
 let config = { 
   parent: '.canvas-wrapper',

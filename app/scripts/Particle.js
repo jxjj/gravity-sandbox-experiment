@@ -1,10 +1,12 @@
+
+'use strict';
+
+import p5 from 'p5';
+import _ from 'lodash';
+
 /**
 * p5 Particle
 */
-import p5 from 'p5';
-import _ from 'lodash';
-//import mod from './mod';
-
 export default class Particle {
 
   /**
@@ -36,10 +38,10 @@ export default class Particle {
   }
 
   getDistanceTo(anotherParticle) {
-    if (! anotherParticle instanceof Particle) {
+    if ( !(anotherParticle instanceof Particle) ) {
       throw Error(`getDistanceTo(): cannot get distance between ${this} and other particle '${anotherParticle}'`);
     }
-    
+
     return this.position.dist(anotherParticle.position);
   }
 
