@@ -21,6 +21,7 @@ export default class Particle {
       edgeBounceMode: false,
       edgeWrapMode: true,
       frictionFactor: 1,
+      maxVelocity: 100,
       position:  new p5.Vector(0,0),
       sketch: null,
       velocity: new p5.Vector(0,0),
@@ -180,6 +181,9 @@ export default class Particle {
       ( this.position.x - this.previousPosition.x + this.acceleration.x ) * this.frictionFactor,
       ( this.position.y - this.previousPosition.y + this.acceleration.y ) * this.frictionFactor
     );
+
+    // keep the velocity within the bounds of maxVelocity
+    this.velocity.limit(this.maxVelocity);
 
     // update previousPosition
     this.previousPosition.set(this.position.copy());

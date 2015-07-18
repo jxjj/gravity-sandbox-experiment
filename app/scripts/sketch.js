@@ -34,6 +34,7 @@ function sketch(s) {
 
     particleSys = new ParticleSystem({
       sketch: s,
+      //gravitationalConstant: 50,
     });
 
     particleSys.add( {
@@ -41,16 +42,15 @@ function sketch(s) {
       color: 'red',
     });
 
-    particleSys.add( {
-      position: new Vector(s.width/2 + 100, s.height/2),
-      color: 'blue',
-    });
+    // particleSys.add( {
+    //   position: new Vector(s.width/2 + 100, s.height/2),
+    //   color: 'blue',
+    // });
   };
 
   s.draw = function() {
     s.background(0);
     particleSys.update().render();
-
   };
 
   s.mousePressed = function() {
