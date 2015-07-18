@@ -16,9 +16,13 @@ export default class Particle {
 
     let defaults = {
       acceleration: new p5.Vector(0,0),
+      // small amount of energy loss on edge bounce
+      edgeBounceFactor: 0.99,
+      edgeBounceMode: true,
       position:  new p5.Vector(0,0),
       sketch: null,
       velocity: new p5.Vector(0,0),
+      color: [127],
     };
 
     config = _.assign({}, defaults, config);
@@ -50,6 +54,40 @@ export default class Particle {
   // setPosition(positionVector) {}
 
   /**
+  * if this particle's current position is beyond the edge
+  * of the canvas, change the position so that it
+  * appears to have "bounced" off the edge
+  */
+  _correctForEdgeBounce() {
+    
+    // position off right edge
+    if (this.position.x > this.sketch.width) {
+      this.position.x = this.sketch.width;
+      this.previousPosition.x = this.position.x + this.velocity.x * this.edgeBounceFactor;
+    }
+
+    // left edge
+    if (this.position.x < 0) {
+      this.position.x = 0;
+      this.previousPosition.x = this.position.x + this.velocity.x * this.edgeBounceFactor;
+    }
+
+    // bottom edge
+    if (this.position.y > this.sketch.height) {
+      this.position.y = this.sketch.height;
+      this.previousPosition.y = this.position.y + this.velocity.y * this.edgeBounceFactor;
+    }
+
+    // top edge
+    if (this.position.y < 0) {
+      this.position.y = 0;
+      this.previousPosition.y = this.position.y + this.velocity.y * this.edgeBounceFactor;
+    }
+
+  }
+
+
+  /**
   * update position using Verlet Integration
   */
   update() {
@@ -67,6 +105,11 @@ export default class Particle {
     // update current position, taking the above calculated velocity into account
     this.position.add(this.velocity.x, this.velocity.y);
 
+    // correct if bounce
+    if (this.edgeBounceMode) {
+      this._correctForEdgeBounce();
+    }
+
     return this;
   }
 
@@ -77,7 +120,10 @@ export default class Particle {
       throw new Error('Cannot render. No sketch is set for this particle.');
     }
 
+    s.push();
+    s.stroke(this.color);
     s.point(this.position.x, this.position.y);
+    s.pop();
 
     return this;
   }

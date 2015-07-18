@@ -28,4 +28,4 @@ export default {
   getRandomInt,
   getRandomFloat,
   mod,
-}
+};

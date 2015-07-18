@@ -6,7 +6,7 @@ import $ from 'jquery';
 import _ from 'lodash';
 import p5 from 'p5';
 import Particle from './Particle';
-import { getRandomFloat } from './util';
+import { getRandomFloat, getRandomInt } from './util';
 
 let config = { 
   parent: '.canvas-wrapper',
@@ -15,9 +15,7 @@ let config = {
 };
 
 let $canvasWrapper = $(config.parent);
-
 let particles = [];
-
 window.particles = particles;
 
 function sketch(s) {
@@ -54,6 +52,7 @@ function sketch(s) {
       sketch: s,
       velocity: new p5.Vector( getRandomFloat(-1,1), getRandomFloat(-1,1) ),
       acceleration: new p5.Vector(0,0),
+      color: [getRandomInt(0,255), getRandomInt(0,255), getRandomInt(0,255)]
     });
     particles.push(p);
 
