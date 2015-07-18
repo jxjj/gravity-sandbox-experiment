@@ -52,7 +52,7 @@ function sketch(s) {
     let p = new Particle({
       position: new p5.Vector(s.mouseX, s.mouseY),
       sketch: s,
-      velocity: new p5.Vector(1,1),
+      velocity: new p5.Vector( getRandomFloat(-1,1), getRandomFloat(-1,1) ),
       acceleration: new p5.Vector(0,0),
     });
     particles.push(p);
