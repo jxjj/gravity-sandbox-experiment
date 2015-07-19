@@ -33,6 +33,13 @@ export default class ParticleSystem {
 
   }
 
+  /**
+  * removes all particles within the system
+  */
+  removeAll() {
+    this.particles = [];
+  }
+
   add(config) {
     let defaults = {
       position: new p5.Vector(0,0),

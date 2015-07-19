@@ -29,8 +29,7 @@ function sketch(s) {
     ).parent($canvasWrapper[0]);
 
     s.background(0);
-    s.stroke(200);
-    //s.frameRate(1);
+    s.noStroke();
 
     particleSys = new ParticleSystem({
       sketch: s,
@@ -42,20 +41,22 @@ function sketch(s) {
       color: 'red',
     });
 
-    particleSys.add( {
-      position: new Vector(s.width/2 + 100, s.height/2),
-      color: 'blue',
-    });
+    // particleSys.add( {
+    //   position: new Vector(s.width/2 + 100, s.height/2),
+    //   color: 'blue',
+    // });
 
-    particleSys.add( {
-      position: new Vector(s.width/2 + 50, s.height/2 + 100),
-      color: [0,255,0],
-    });
   };
 
   s.draw = function() {
     s.background(0);
     particleSys.update().render();
+
+    s.push();
+    s.fill(100);
+    s.ellipse(s.mouseX, s.mouseY, 10, 10);
+    s.pop();
+
   };
 
   s.mousePressed = function() {
@@ -64,6 +65,15 @@ function sketch(s) {
       position: new p5.Vector(s.mouseX, s.mouseY),
       color: [getRandomInt(0,255), getRandomInt(0,255), getRandomInt(0,255)]
     });
+
+    // prevent default
+    return false;
+  };
+
+  s.keyPressed = function() {
+    if (s.key === ' ') {
+      particleSys.removeAll();
+    }
   };
 
   s.windowResized = function() {
