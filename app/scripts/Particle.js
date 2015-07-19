@@ -26,6 +26,7 @@ export default class Particle {
       sketch: null,
       velocity: new p5.Vector(0,0),
       color: [127],
+      radius: 10,
     };
 
     config = _.assign({}, defaults, config);
@@ -51,9 +52,7 @@ export default class Particle {
   equals(anotherParticle) {
     
     let samePos = this.position.equals(anotherParticle.position);
-
     let sameVel = this.velocity.equals(anotherParticle.velocity);
-
     let sameAccel = this.acceleration.equals(anotherParticle.acceleration);
 
     return samePos && sameVel && sameAccel; 
@@ -93,9 +92,7 @@ export default class Particle {
   getDistSqTo(anotherParticle) {
     let dx = this.position.x - anotherParticle.position.x;
     let dy = this.position.y - anotherParticle.position.y;
-
-    let distSq = dx*dx + dy*dy;
-    return distSq;
+    return dx*dx + dy*dy;
   }
 
   getDistTo(anotherParticle) {
@@ -191,7 +188,7 @@ export default class Particle {
     // update current position, taking the above calculated velocity into account
     this.position.add(this.velocity);
 
-    // correct if bounce
+    // handle edge cases
     if (this.edgeBounceMode) {
       this._correctForEdgeBounce();
     } else if (this.edgeWrapMode) {
@@ -209,11 +206,9 @@ export default class Particle {
     }
 
     s.push();
-    //s.stroke(this.color);
-    //s.point(this.position.x, this.position.y);
     s.noStroke();
     s.fill(this.color);
-    s.ellipse(this.position.x, this.position.y, 10, 10);
+    s.ellipse(this.position.x, this.position.y, this.radius, this.radius);
     s.pop();
 
     return this;
